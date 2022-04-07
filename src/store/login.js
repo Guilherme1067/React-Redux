@@ -28,33 +28,15 @@ const user = createAsyncSlice({
   }),
 });
 
-// const fetchUser = (token) => async (dispatch) => {
-//   try {
-//     dispatch(fetchUserStarted());
-//     const response = await fetch('https://dogsapi.origamid.dev/json/api/user', {
-//       method: 'GET',
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     });
-//     const user = await response.json();
-//     return dispatch(fetchUserSuccess(user));
-//   } catch (error) {
-//     return dispatch(fetchUserError(error.message));
-//   }
-// };
-
-const reducer = combineReducers({ token: token.reducer, user: user.reducer });
 const fetchToken = token.asyncAction;
 const fetchUser = user.asyncAction;
 
-export const login = (user) => {
-  return async (dispatch) => {
-    try {
-      const { payload } = await dispatch(fetchToken(user));
-      if (payload !== undefined) await dispatch(fetchUser(payload.token));
-    } catch (error) {}
-  };
+export const login = (user) => async (dispatch) => {
+  try {
+    const { payload } = await dispatch(fetchToken(user));
+    if (payload.token) await dispatch(fetchUser(payload.token));
+  } catch (error) {}
 };
 
+const reducer = combineReducers({ user: user.reducer, token: token.reducer });
 export default reducer;

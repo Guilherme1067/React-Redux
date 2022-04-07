@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { somar } from './store/contador';
 import { login } from './store/login';
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
         <br />
         <button>Enviar</button>
       </form>
+      <button onClick={() => dispatch(somar(5))}>Somar</button>
     </div>
   );
 }

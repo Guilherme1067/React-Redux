@@ -1,13 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-/**
- * Creates a slice with an async function
- * @param {Object} config
- * @param {String} config.name
- * @param {Object} config.initalState
- * @param {Object} config.reducers
- * @param {Function} config.fetchConfig
- */
 const createAsyncSlice = (config) => {
   const slice = createSlice({
     name: config.name,
@@ -15,8 +7,8 @@ const createAsyncSlice = (config) => {
       loading: false,
       data: null,
       error: null,
-      ...config.initialState,
     },
+    ...config.initialState,
     reducers: {
       fetchStarted(state) {
         state.loading = true;
